@@ -5,32 +5,46 @@ from styles import INFO_CARD_STYLE
 
 dash.register_page(__name__, path='/', name='Técnicas de Modelado')
 
-page_content = dbc.Card(
+layout = dbc.Card(
     dbc.CardBody([
         html.H2("Técnicas de Modelamiento Matemático", className="card-title text-center mb-4"),
         html.P(
-            "El modelamiento matemático es el arte de traducir problemas del mundo real a un lenguaje matemático. Utilizamos ecuaciones y conceptos para representar, analizar y predecir el comportamiento de diferentes sistemas. La elección de la técnica depende de la naturaleza del problema:",
+            "El modelamiento matemático es el proceso de representar un fenómeno real mediante expresiones matemáticas, con el objetivo de analizarlo, comprenderlo y predecir su comportamiento.",
+            className="text-center"
+        ),
+        html.P(
+            "En esta asignatura, el estudiante aprende a formular, analizar y resolver modelos que surgen en distintas áreas de la ciencia, la ingeniería, la economía y la biología, entre otras.",
             className="text-center"
         ),
         html.Hr(),
+
+        html.H5("Pasos Fundamentales del Modelamiento", className="text-center"),
         dcc.Markdown("""
-            * **Modelos Deterministas vs. Estocásticos:** Producen la misma salida para una entrada dada o incorporan aleatoriedad.
-            * **Modelos Estáticos vs. Dinámicos:** No consideran el tiempo y representan un sistema en un punto fijo, o describen cómo un sistema evoluciona.
-            * **Modelos Lineales vs. No Lineales:** Se basan en si las relaciones entre las variables son simples y directas, o complejas y variables.
-            * **Modelos Discretos vs. Continuos:** Describen variables en puntos de tiempo específicos o de forma continua.
-        """, className="mt-4"),
+            * **Identificación del problema real:** Reconocer las variables, parámetros y relaciones que influyen en el fenómeno.
+            * **Formulación del modelo:** Traducir el problema a ecuaciones matemáticas que describan su comportamiento.
+            * **Análisis y resolución:** Aplicar métodos analíticos o numéricos para estudiar el modelo y obtener resultados.
+            * **Validación e interpretación:** Comparar los resultados con datos reales y ajustar el modelo según sea necesario.
+            * **Simulación y predicción:** Usar herramientas computacionales para simular distintos escenarios y prever comportamientos futuros.
+        """, className="mt-3"),
+
+        html.Hr(),
+        
+        html.H5("Técnicas y Herramientas Introducidas", className="text-center"),
+        dcc.Markdown("""
+            * Ecuaciones diferenciales ordinarias y parciales
+            * Modelos lineales y no lineales
+            * Modelos discretos y continuos
+            * Análisis de estabilidad
+            * Métodos numéricos y simulaciones computacionales
+        """, className="mt-3"),
+
+        html.Hr(),
+
+        html.P(
+            "En conjunto, estas técnicas permiten convertir problemas reales en modelos matemáticos útiles, facilitando la toma de decisiones, la optimización de procesos y la comprensión profunda de sistemas complejos.",
+            className="text-center fw-bold"
+        )
     ]),
     className="m-4",
     style=INFO_CARD_STYLE
 )
-
-layout = html.Div([
-    html.Link(
-        rel='stylesheet',
-        href='https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&display=swap'
-    ),
-    html.Div(
-        page_content,
-        style={'fontFamily': 'Outfit, sans-serif'}
-    )
-])

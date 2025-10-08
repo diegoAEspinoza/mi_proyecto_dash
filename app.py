@@ -14,7 +14,7 @@ server = app.server
 header = html.Div([
     html.Div(
         html.H2("Técnicas de Modelamiento Matemático", className="text-white text-center p-3"),
-        style={'backgroundColor': 'mediumblue'}
+        style={'backgroundColor': '#E25822'}
     ),
     html.Div(
         [
@@ -27,7 +27,7 @@ header = html.Div([
             for page in dash.page_registry.values()
         ],
         className="d-flex justify-content-center p-2",
-        style={'backgroundColor': 'mediumblue', 'borderTop': '2px solid white'}
+        style={'backgroundColor': '#E25822', 'borderTop': '2px solid white'}
     )
 ], className="mb-4 shadow")
 

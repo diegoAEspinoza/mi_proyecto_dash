@@ -149,8 +149,4 @@ def update_logistic_graph(p0, r, k):
         margin=dict(l=40, r=20, t=60, b=40),
         plot_bgcolor='lightblue'
     )
-    
-    fig.update_xaxes(showline=True, linewidth=2, linecolor='red', gridcolor='lightgray')
-    fig.update_yaxes(showline=True, linewidth=2, linecolor='red', gridcolor='lightgray')
-    
-    return fig  
+    return fig
