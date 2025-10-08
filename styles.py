@@ -1,34 +1,39 @@
 NAV_LINK_STYLE = {
-    'backgroundColor': '#98FB98',
-    'color': 'black',
-    'borderRadius': '8px',
-    'padding': '5px 15px',
-    'margin': '0 5px',
+    'backgroundColor': '#FF7F00',   
+    'color': '#FFF3E0',            
+    'borderRadius': '10px',
+    'padding': '6px 16px',
+    'margin': '0 6px',
     'textDecoration': 'none',
-    'fontWeight': 'bold'
+    'fontWeight': 'bold',
+    'boxShadow': '3px 3px 8px rgba(0,0,0,0.3)',
+    'transition': 'all 0.2s ease-in-out'
 }
 
 PROFILE_IMAGE_STYLE = {
     'width': '100%',
     'borderRadius': '50%',
-    'border': '5px solid mediumblue',
-    'boxShadow': '0 4px 8px 0 rgba(0, 0, 0, 0.2)'
+    'border': '5px solid #E25822',  
+    'boxShadow': '0 4px 10px rgba(0, 0, 0, 0.3)'
 }
 
 INPUT_STYLE_COMPACT = {
-    'backgroundColor': 'white',
-    'color': 'black',
+    'backgroundColor': '#FFF3E0',  
+    'color': '#2E2E2E',           
     'textAlign': 'center',
-    'borderRadius': '15px',
-    'border': '2px solid #0d6efd',
-    'padding': '4px',
+    'borderRadius': '12px',
+    'border': '2px solid #FF7F00', 
+    'padding': '5px',
     'fontSize': '0.9rem',
-    'width': '100%'
+    'width': '100%',
+    'boxShadow': 'inset 0 1px 4px rgba(0,0,0,0.1)'
 }
 
 INFO_CARD_STYLE = {
-    'border': '2px solid black',
-    'borderRadius': '15px',
-    'boxShadow': '8px 8px 12px rgba(0,0,0,0.25)',
-    'height': '100%'
+    'border': '2px solid #E25822', 
+    'borderRadius': '16px',
+    'boxShadow': '6px 6px 14px rgba(0,0,0,0.25)',
+    'backgroundColor': '#FFD166', 
+    'height': '100%',
+    'color': '#2E2E2E'
 }
