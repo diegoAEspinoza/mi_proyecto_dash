@@ -1,4 +1,4 @@
-import dash
+import dash 
 from dash import dcc, html, Input, Output, callback
 import dash_bootstrap_components as dbc
 import plotly.graph_objects as go
@@ -19,13 +19,15 @@ page_content = dbc.Card(
             dbc.Col(dbc.Card(dbc.CardBody([
                 html.H5("Ecuación Diferencial", className="card-title text-center"),
                 html.Div(
-                    html.Img(src=r"https://latex.codecogs.com/svg.latex?\frac{dP}{dt}=rP", style={'height': '50px', 'display': 'block', 'margin': '10px auto'}),
+                    html.Img(src=r"https://latex.codecogs.com/svg.latex?\frac{dP}{dt}=rP", 
+                             style={'height': '50px', 'display': 'block', 'margin': '10px auto'}),
                 ),
             ]), style=INFO_CARD_STYLE), md=6, className="mb-4"),
             dbc.Col(dbc.Card(dbc.CardBody([
                 html.H5("Solución de la E.D.O.", className="card-title text-center"),
                 html.Div(
-                    html.Img(src=r"https://latex.codecogs.com/svg.latex?P(t)=P_0e^{rt}", style={'height': '50px', 'display': 'block', 'margin': '10px auto'}),
+                    html.Img(src=r"https://latex.codecogs.com/svg.latex?P(t)=P_0e^{rt}", 
+                             style={'height': '50px', 'display': 'block', 'margin': '10px auto'}),
                 ),
             ]), style=INFO_CARD_STYLE), md=6, className="mb-4"),
         ]),
@@ -64,10 +66,24 @@ page_content = dbc.Card(
         dbc.Row([
             dbc.Col([
                 html.H4("Parámetros", className="text-center fw-bold mb-3"),
+                
                 dbc.Label("Población Inicial (P₀):", className="small"),
-                dcc.Input(id='exp-initial-pop-input', type='number', value=10, min=1, style=INPUT_STYLE_COMPACT, className="mb-3"),
+                dcc.Input(id='exp-initial-pop-input', type='number', value=10, min=1, 
+                          style=INPUT_STYLE_COMPACT, className="mb-3"),
+                
                 dbc.Label("Tasa de Crecimiento (r):", className="small"),
-                dcc.Input(id='exp-rate-input', type='number', value=0.2, min=0.01, step=0.01, style=INPUT_STYLE_COMPACT, className="mb-3"),
+                dcc.Input(id='exp-rate-input', type='number', value=0.2, min=0.01, step=0.01, 
+                          style=INPUT_STYLE_COMPACT, className="mb-3"),
+                
+                dbc.Label("Tiempo Final (tₘₐₓ):", className="small"),
+                dcc.Input(id='exp-time-max-input', type='number', value=10, min=1, step=0.5, 
+                          style=INPUT_STYLE_COMPACT, className="mb-3"),
+                
+                dbc.Label("Tiempo a Evaluar (t):", className="small"),
+                dcc.Input(id='exp-time-input', type='number', value=5, min=0, step=0.1, 
+                          style=INPUT_STYLE_COMPACT, className="mb-3"),
+                
+                html.Div(id='exp-pop-result', className="text-center fw-bold mt-3 text-primary"),
             ], md=3),
             dbc.Col(
                 dcc.Graph(id='exponential-graph', style={'height': '100%'}),
@@ -90,16 +106,23 @@ layout = html.Div([
 ])
 
 @callback(
-    Output('exponential-graph', 'figure'),
+    [Output('exponential-graph', 'figure'),
+     Output('exp-pop-result', 'children')],
     [Input('exp-initial-pop-input', 'value'),
-     Input('exp-rate-input', 'value')]
+     Input('exp-rate-input', 'value'),
+     Input('exp-time-max-input', 'value'),
+     Input('exp-time-input', 'value')]
 )
-def update_exponential_graph(p0, r):
-    if p0 is None or r is None:
-        return dash.no_update
+def update_exponential_graph(p0, r, t_max, t_eval):
+    if p0 is None or r is None or t_max is None or t_eval is None:
+        return dash.no_update, ""
 
-    t = np.linspace(0, 10, 200)
+    t_eval = min(t_eval, t_max)
+
+    t = np.linspace(0, t_max, 200)
     P = p0 * np.exp(r * t)
+
+    P_eval = p0 * np.exp(r * t_eval)
 
     fig = go.Figure()
 
@@ -108,17 +131,18 @@ def update_exponential_graph(p0, r):
         line=dict(color='blue', width=2),
         name='Ecuación Exponencial'
     ))
-    
+
     fig.add_trace(go.Scatter(
-        x=[t[0], t[-1]],
-        y=[P[0], P[-1]],
-        mode='markers',
-        marker=dict(color='black', size=10),
-        showlegend=False
+        x=[t_eval], y=[P_eval],
+        mode='markers+text',
+        marker=dict(color='red', size=10),
+        text=[f"P({t_eval}) = {P_eval:.2f}"],
+        textposition="top center",
+        name='Evaluación'
     ))
-    
+
     fig.update_layout(
-        title_text="Campo de vectores de dP/dt = rP",
+        title_text="Crecimiento Exponencial: dP/dt = rP",
         title_x=0.5,
         xaxis_title="Tiempo (t)",
         yaxis_title="Población (P)",
@@ -135,8 +159,9 @@ def update_exponential_graph(p0, r):
         margin=dict(l=40, r=20, t=60, b=40),
         plot_bgcolor='lightblue'
     )
-    
-    fig.update_xaxes(showline=True, linewidth=2, linecolor='red', gridcolor='lightgray')
+
+    fig.update_xaxes(showline=True, linewidth=2, linecolor='red', gridcolor='lightgray', range=[0, t_max])
     fig.update_yaxes(showline=True, linewidth=2, linecolor='red', gridcolor='lightgray')
 
-    return fig
+    # ✅ Corrección: se eliminan los ** para evitar que aparezcan literalmente
+    return fig, f" Población en t = {t_eval}: P(t) = {P_eval:.2f}"
